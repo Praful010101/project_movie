@@ -4,21 +4,16 @@ from dotenv import load_dotenv
 from flask import Flask, request
 from datetime import datetime, timezone
 
-load_dotenv()  # loads variables from .env file into environment
+load_dotenv()  
 
 app = Flask(__name__)
-url = os.environ.get("DATABASE_URL")  # gets variables from environment
+url = os.environ.get("DATABASE_URL")  
 connection = psycopg2.connect(url)
 
 
-# CREATE_MOVIE_TABLE = (
-#     "CREATE TABLE IF NOT EXISTS movie (id SERIAL PRIMARY KEY, title TEXT);"
-# )
 CREATE_DETAILS_TABLE = (
     "CREATE TABLE IF NOT EXISTS details (movie_id int not null, movie VARCHAR(10), poster_path VARCHAR(10), language VARCHAR(10) , overview VARCHAR(10), release_date date, CONSTRAINT movie_id_pk PRIMARY KEY (movie_id));"
 )
-
-# INSERT_MOVIE_RETURN_ID = "INSERT INTO movie (title) VALUES (%s) RETURNING id;"
 
 INSERT_DETAILS = (
     "INSERT INTO details (movie_id, movie, poster_path, language, overview, release_date) VALUES (%s, %s, %s, %s, %s, %s) RETURNING movie_id;"
